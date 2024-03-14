@@ -54,10 +54,7 @@ jobs:
         run: npm run start
       
       - name: Run MongoDB container
-        uses: actions/docker-run@v3
-        with:
-          image: mongo:latest
-          ports: 27017:27017
+        run: sudo sh mongoDB_container.sh
 
     # send-mail:
     #   needs: build
