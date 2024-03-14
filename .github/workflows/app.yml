@@ -25,6 +25,16 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: package
+          path: ./dist/test_package.zip
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: test-coverage
+          path: ./dist/test_coverage.html    
+
   build:
     needs: tests
     runs-on: ubuntu-latest
@@ -45,3 +55,6 @@ jobs:
 
       - name: Build application
         run: npm run build
+
+  
+
