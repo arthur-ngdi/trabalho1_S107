@@ -50,11 +50,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Run MongoDB container
+        run: sudo sh mongoDB_container.sh
+
       - name: Build application
         run: npm run start
       
-      - name: Run MongoDB container
-        run: sudo sh mongoDB_container.sh
+      
 
     # send-mail:
     #   needs: build
