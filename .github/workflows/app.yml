@@ -1,0 +1,80 @@
+name: CI/CD pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js and NPM
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build application
+        run: npm run build
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: package
+          path: ./dist/test_package.zip
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: test-coverage
+          path: ./dist/test_coverage.html    
+
+  build:
+    # needs: tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js and NPM
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run MongoDB container
+        run: sudo sh mongoDB_container.sh
+
+      - name: Build application
+        run: npm run start
+      
+      
+
+    # send-mail:
+    #   needs: build
+    #   runs-on: ubuntu-latest
+
+    #   steps:
+    #   - uses: actions/checkout@v3
+
+    #   - name: Set up Node.js and NPM
+    #     uses: actions/setup-node@v3
+    #     with:
+    #       node-version: 16
+
+    #   - name: Install dependencies
+    #     run: npm install
+
+    #   - name: send-email
+    #     run: 
+
+  
+
