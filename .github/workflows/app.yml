@@ -57,8 +57,7 @@ jobs:
         uses: docker/run-action@v2
         with:
           image: mongo:latest
-          ports:
-            - 27017:27017
+          ports: 27017:27017
 
     # send-mail:
     #   needs: build
