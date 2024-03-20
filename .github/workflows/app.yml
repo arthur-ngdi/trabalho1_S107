@@ -23,7 +23,7 @@ jobs:
       - name: Test with Maven
         run: |
           
-          mvn clean test site
+          mvn clean test
   
     build:       
         needs: test
