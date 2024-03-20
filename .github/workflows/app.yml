@@ -22,7 +22,7 @@ jobs:
 
       - name: Test with Maven
         run: |
-          cd Trabalho_S107
+          cd ../../Trabalho_S107
           mvn clean test site
   
     build:       
@@ -41,5 +41,5 @@ jobs:
 
         - name: Build with Maven
           run: |
-            cd Trabalho_S107
+            cd ../../Trabalho_S107
             mvn clean install
