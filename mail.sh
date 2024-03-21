@@ -5,4 +5,4 @@ recipient="$1"
 subject="Greetings!"
 body="Hello, World! This is a test email sent using 'mutt'."
 
-echo $body | mutt -s $subject $1
+echo $body | mail -s $subject $1
