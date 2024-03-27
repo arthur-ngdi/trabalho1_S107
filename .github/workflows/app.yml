@@ -7,10 +7,10 @@ on:
     branches: [ "main" ]
 
 jobs:
-    test:   
-      runs-on: ubuntu-latest
+  test:   
+    runs-on: ubuntu-latest
           
-      steps:
+    steps:
       - uses: actions/checkout@v4
 
       - name: Set up JDK 21
@@ -23,66 +23,63 @@ jobs:
       - name: Test with Maven
         run: mvn clean test
       
-      -name: Test Report artifact
-      -uses: actions/upload-artifact@v4
-      -with:
-        - name: test-report
-        - path: ./test-report  
+      - name: Test Report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: ./test-report  
 
-       
   build:       
-        needs: test
-        runs-on: ubuntu-latest
+    needs: test
+    runs-on: ubuntu-latest
 
-        steps:
-        - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-        - name: Set up JDK 17
-          uses: actions/setup-java@v4
-          with:
-            java-version: '21'
-            distribution: 'temurin'
-            cache: maven
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
 
-        - name: Build with Maven
-          run: mvn clean install
+      - name: Build with Maven
+        run: mvn clean install
 
-    send-email-test:
-      needs: test
-      runs-on: ubuntu-latest
-      env:
-        EMAIL: "arthur.f@gec.inatel.br"
+  send-email-test:
+    needs: test
+    runs-on: ubuntu-latest
+    env:
+      EMAIL: "arthur.f@gec.inatel.br"
 
-      steps:
-          - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-          - name: Set up JDK 17
-            uses: actions/setup-java@v4
-            with:
-              java-version: '21'
-              distribution: 'temurin'
-              cache: maven
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
 
-          - name: Send email
-            run: sh mail_test.sh ${EMAIL}
+      - name: Send email
+        run: sh mail_test.sh ${EMAIL}
 
-    send-email-build:
-        needs: build
-        runs-on: ubuntu-latest
-        env:
-          EMAIL: "arthur.f@gec.inatel.br"
+  send-email-build:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      EMAIL: "arthur.f@gec.inatel.br"
 
-        steps:
-            - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-            - name: Set up JDK 17
-              uses: actions/setup-java@v4
-              with:
-                java-version: '21'
-                distribution: 'temurin'
-                cache: maven
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
 
-            - name: Send email
-              run: sh mail_build.sh ${EMAIL}
-          
-            
+      - name: Send email
+        run: sh mail_build.sh ${EMAIL}
