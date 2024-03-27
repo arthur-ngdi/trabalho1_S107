@@ -66,6 +66,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - name: Send email
-        run: sh ./scripts/mail_build.sh ${EMAIL}
+        run: |
+          if: [failure()]; then
+            run: sh ./scripts/mail_build.sh ${EMAIL}
+          else
+            run sh ./scripts/mail_tests.sh ${EMAIL}
+          fi
