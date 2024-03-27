@@ -26,8 +26,8 @@ jobs:
       - name: Test Report artifact
         uses: actions/upload-artifact@v4
         with:
-          name: test-report
-          path: ./test-report  
+          name: report
+          path: target/surefire-reports/**/*.xml  
 
   build:       
     needs: test
