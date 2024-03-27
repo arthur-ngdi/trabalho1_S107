@@ -22,8 +22,15 @@ jobs:
 
       - name: Test with Maven
         run: mvn clean test
-  
-    build:       
+      
+      -name: Test Report artifact
+      -uses: actions/upload-artifact@v4
+      -with:
+        - name: test-report
+        - path: ./test-report  
+
+       
+  build:       
         needs: test
         runs-on: ubuntu-latest
 
@@ -45,14 +52,17 @@ jobs:
       runs-on: ubuntu-latest
       env:
         EMAIL: "arthur.f@gec.inatel.br"
+
       steps:
           - uses: actions/checkout@v4
+
           - name: Set up JDK 17
             uses: actions/setup-java@v4
             with:
               java-version: '21'
               distribution: 'temurin'
               cache: maven
+
           - name: Send email
             run: sh mail_test.sh ${EMAIL}
 
