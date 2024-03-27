@@ -40,7 +40,23 @@ jobs:
         - name: Build with Maven
           run: mvn clean install
 
-    send-email:
+    send-email-test:
+      needs: test
+      runs-on: ubuntu-latest
+      env:
+        EMAIL: "arthur.f@gec.inatel.br"
+      steps:
+          - uses: actions/checkout@v4
+          - name: Set up JDK 17
+            uses: actions/setup-java@v4
+            with:
+              java-version: '21'
+              distribution: 'temurin'
+              cache: maven
+          - name: Send email
+            run: sh mail_test.sh ${EMAIL}
+
+    send-email-build:
         needs: build
         runs-on: ubuntu-latest
         env:
@@ -57,6 +73,6 @@ jobs:
                 cache: maven
 
             - name: Send email
-              run: sh mail.sh ${EMAIL}
+              run: sh mail_build.sh ${EMAIL}
           
             
