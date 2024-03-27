@@ -2,7 +2,7 @@
 
 sudo apt install mailutils
 recipient="$1"
-subject="Greetings!"
-body="Hello, World! This is a test email sent using 'mutt'."
+subject="Build Status"
+body="Build Passed"
 
 echo $body | mail -s $subject $1

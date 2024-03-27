@@ -43,6 +43,8 @@ jobs:
     send-email:
         needs: build
         runs-on: ubuntu-latest
+        env:
+          EMAIL: "arthur.f@gec.inatel.br"
 
         steps:
             - uses: actions/checkout@v4
@@ -55,6 +57,6 @@ jobs:
                 cache: maven
 
             - name: Send email
-              run: sh mail.sh arthurferreira0711@gmail.com
+              run: sh mail.sh ${EMAIL}
           
             
